@@ -1,16 +1,14 @@
 import "./ExpenseItem.css";
+import ExpenseDate from "./ExpenseDate";
 
-function ExpenseItem() {
-  const expenseDate = new Date(2022, 4, 15);
-  const expenseDescription = 'Book';
-  const expensePrice = 25.99;
+function ExpenseItem(props) {
 
   return (
     <div className="expense-item">
-      <div>{expenseDate.toUTCString()}</div>
+      <ExpenseDate date={props.date}/>
       <div className="expense-item__description">
-        <h2>{expenseDescription}</h2>
-        <div className="expense-item__price">${expensePrice}</div>
+        <h2>{props.title}</h2>
+        <div className="expense-item__price">${props.amount}</div>
       </div>
     </div>
   );
