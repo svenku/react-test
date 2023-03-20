@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import './ExpenseForm.css';
+import { useState } from "react";
+import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
-
+const ExpenseForm = (props) => {
   // const [enteredTitle, setEnteredTitle] = useState('');
   // const [enteredAmount, setEnteredAmount] = useState('');
   // const [enteredDate, setEnteredDate] = useState('');
@@ -10,9 +9,9 @@ const ExpenseForm = () => {
   // using below an alternative way to set state
 
   const [userInput, setUserinput] = useState({
-    enteredTitle: '',
-    enteredAmount: '',
-    enteredDate: ''
+    enteredTitle: "",
+    enteredAmount: "",
+    enteredDate: "",
   });
 
   const titleChangeHandler = (event) => {
@@ -44,7 +43,6 @@ const ExpenseForm = () => {
         enteredAmount: event.target.value,
       };
     });
-
   };
 
   const dateChangeHandler = (event) => {
@@ -64,22 +62,23 @@ const ExpenseForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault(); // prevents page from refreshing
-    
+
     const expenseData = {
       title: userInput.enteredTitle,
       amount: userInput.enteredAmount,
       date: new Date(userInput.enteredDate),
     };
 
-    console.log(userInput);
+    // passes expenseData to parent component executing
+    // saveExpenseDataHandler() through onSaveExpenseData prop
+    props.onSaveExpenseData(expenseData);
 
     // clear the form after submitting
     setUserinput({
-      enteredTitle: '',
-      enteredAmount: '',
-      enteredDate: '',
-    })
-
+      enteredTitle: "",
+      enteredAmount: "",
+      enteredDate: "",
+    });
   };
 
   return (
@@ -87,28 +86,38 @@ const ExpenseForm = () => {
       <div className="new-expense__controls">
         <div className="new-expense__controls">
           <label>Title</label>
-          <input type="text" 
-          value={userInput.enteredTitle} // this is the value of the input (2 way binding)
-          onChange={titleChangeHandler}/>
+          <input
+            type="text"
+            value={userInput.enteredTitle} // this is the value of the input (2 way binding)
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__controls">
           <label>Amount</label>
-          <input type="number" 
-          value={userInput.enteredAmount}
-          onChange={amountChangeHandler} min="0.01" step="0.01"/>
+          <input
+            type="number"
+            value={userInput.enteredAmount}
+            onChange={amountChangeHandler}
+            min="0.01"
+            step="0.01"
+          />
         </div>
         <div className="new-expense__controls">
           <label>Date</label>
-          <input type="date" 
-          value={userInput.enteredDate}
-          onChange={dateChangeHandler} min="2010-01-01" max="2030-01-01"/>
-        </div>      
+          <input
+            type="date"
+            value={userInput.enteredDate}
+            onChange={dateChangeHandler}
+            min="2010-01-01"
+            max="2030-01-01"
+          />
+        </div>
       </div>
       <div className="new-expense__actions">
         <button type="submit">Add Expense</button>
       </div>
     </form>
-  );  
-}
+  );
+};
 
 export default ExpenseForm;
