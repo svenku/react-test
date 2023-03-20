@@ -57,13 +57,26 @@ const ExpenseForm = () => {
     setUserinput((prevState) => {
       return {
         ...prevState,
-        entereDate: event.target.value,
+        enteredDate: event.target.value,
       };
     });
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault(); // prevents page from refreshing
+    
+    const expenseData = {
+      title: userInput.enteredTitle,
+      amount: userInput.enteredAmount,
+      date: new Date(userInput.enteredDate),
+    };
+
+
+    console.log(userInput);
+  };
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__controls">
           <label>Title</label>
