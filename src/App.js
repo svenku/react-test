@@ -1,9 +1,8 @@
+import { useState } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 
-
-const App = () => {
-  const expenses = [
+  const DUMMY_EXPENSES = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -25,12 +24,17 @@ const App = () => {
     },
   ];
 
-  const addExpenseHandler = (expense) => {
-    expenses.push(expense);
-    console.log(expense);
-    console.log(expenses);
+const App = () => {
 
-  }
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const addExpenseHandler = (expense) => {
+    // not entirely correct would be: setExpenses([expense, ...expenses]);
+    // as update is based on previous state, then clean way would be this: 
+    setExpenses((prevExpenses) => {
+      return [expense, ...prevExpenses];
+    });
+  };
 
   return (
     <div>
